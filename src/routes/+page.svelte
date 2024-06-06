@@ -1,22 +1,40 @@
 <script lang="ts">
-  import TopBar from "$lib/components/TopBar.svelte";
-  import Box from "$lib/components/Box.svelte";
+  import type { PageData } from './$types'
+  import Subs from '../lib/components/Subs.svelte'
+  import TopBar from '$lib/components/bars/TopBar.svelte'
+  import BottomBar from '$lib/components/bars/BottomBar.svelte'
+  import Box from '$lib/components/Box.svelte'
+  import Weather from '$lib/components/Weather.svelte'
+  import { getNews } from '$lib/fetchers/news'
+  import Icon from '@iconify/svelte'
+  import PetrikLogo from "$lib/icon.png"
+  export let data: any = {} as PageData
 </script>
 
-<div class="bg-gradient-to-r from-emerald-800 to-emerald-900 text-white p-2 h-full flex flex-col gap-2">
-  <TopBar />
+<div
+  class="h-svh bg-gradient-to-l from-emerald-800 to-emerald-950 text-white p-2 flex flex-col gap-3"
+>
+  <TopBar apiKey={data.bkkKey} />
 
-  <div class="grid grid-cols-2 gap-2 h-full">
-    <div class="grid grid-rows-2 gap-2">
+  <div class="grid grid-cols-3 gap-3 h-full">
+    <div class="grid grid-rows-2 gap-3 col-span-1">
       <Box>
-
+        <Weather weatherKey={data.weatherKey} />
       </Box>
       <Box>
-
+        <div class="flex items-center justify-center h-full animate-pulse grayscale">
+          <img src={PetrikLogo} alt="">
+        </div>
       </Box>
     </div>
-    <Box>
-      
+    <Box class="col-span-2">
+      <Subs></Subs>
     </Box>
   </div>
+
+  {#await getNews() then news}
+    {#if news}
+      <BottomBar {news} />
+    {/if}
+  {/await}
 </div>

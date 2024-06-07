@@ -12,7 +12,7 @@
   // refetch every minute
   setInterval(() => {
     depPromise = getDeparturesForStop(bkk_key, stopId)
-  }, 45000)
+  }, 30000)
 </script>
 
 <div class="flex items-center gap-2 bg-emerald-900 rounded-full pl-4">

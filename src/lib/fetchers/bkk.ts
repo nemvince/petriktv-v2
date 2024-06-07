@@ -1,12 +1,4 @@
-import { onMount } from 'svelte'
-
 const baseUrl = 'https://futar.bkk.hu/api/query/v1/ws/otp/api/where'
-
-export const stops = {
-  reinerToKeleti: 'BKK_F01145',
-  reinerToHosok: 'BKK_F01149',
-  chazarToZuglo: 'BKK_F02716'
-}
 
 export async function getDeparturesForStop(apiKey: string, stopId: string) {
   try {
@@ -32,8 +24,8 @@ export async function getDeparturesForStop(apiKey: string, stopId: string) {
       (departureTime.getTime() - currentTime.getTime()) / 60000
     )
 
-    // add artificial delay of 2 seconds
-    await new Promise((resolve) => setTimeout(resolve, 500))
+    // add artificial delay
+    // await new Promise((resolve) => setTimeout(resolve, 500))
 
     return {
       routeShortDesc: routeShortDesc,

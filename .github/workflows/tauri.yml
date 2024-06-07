@@ -55,6 +55,9 @@ jobs:
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: npm install # change this to npm or pnpm depending on which one you use.
 
+      - name: get environment variables into .env
+        run: echo BKK_KEY=${{ secrets.BKK_KEY }} > .env && echo WEATHER_KEY=${{ secrets.WEATHER_KEY }} >> .env
+
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

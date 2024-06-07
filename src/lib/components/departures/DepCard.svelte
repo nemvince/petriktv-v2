@@ -26,19 +26,19 @@
       <span class="text-white text-2xl">...</span>
     </div>
   {:then dep}
-  {#if dep}
-    <span class="text-2xl">
-      {#if dep.minutesUntilDeparture > 0}
-        {dep.minutesUntilDeparture}'
-      {:else}
-        Indul!
-      {/if}
-    </span>
-    <div class="bg-cyan-600 rounded-full p-1 flex gap-2 pr-3 items-center font-semibold">
-      <Icon icon="mdi:bus" class="text-3xl p-0.5 rounded-full bg-white text-cyan-600" />
-      <span class="text-white text-2xl">{dep.routeShortDesc}</span>
-    </div>
-  {/if}
+    {#if dep}
+      <span class="text-2xl">
+        {#if dep.minutesUntilDeparture > 0}
+          {dep.minutesUntilDeparture}'
+        {:else}
+          Indul!
+        {/if}
+      </span>
+      <div class="bg-cyan-600 rounded-full p-1 flex gap-2 pr-3 items-center font-semibold">
+        <Icon icon="mdi:bus" class="text-3xl p-0.5 rounded-full bg-white text-cyan-600" />
+        <span class="text-white text-2xl">{dep.routeShortDesc}</span>
+      </div>
+    {/if}
   {:catch error}
     <Icon icon="mdi:error" class="text-2xl" />
     {error.message}

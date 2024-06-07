@@ -4,11 +4,14 @@
   function updateClock() {
     const now = new Date()
     // HH:MM
-    clockText = now.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    })
+    clockText =
+      now.toLocaleDateString('hu-HU') +
+      ' ' +
+      now.toLocaleTimeString('hu-HU', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })
   }
 
   updateClock()

@@ -1,5 +1,11 @@
 const baseUrl = 'https://helyettesites.petrik.hu/api/index.php?status=napihely'
 
+interface PaginatedData {
+  page: number
+  totalPages: number
+  data: any[]
+}
+
 const periods = [
   {
     period: 0,
@@ -108,7 +114,26 @@ type SubInput = {
   day: string
 }
 
-export const getSubs = async () => {
+const chunk = (array: any[], chunk_size: number): any[] => {
+  if (array.length === 0) return []
+  else return [array.splice(0, chunk_size)].concat(chunk(array, chunk_size))
+}
+
+const paginate = (data: any[], pageSize: number): PaginatedData[] => {
+  const paginatedData: any[] = []
+  let pageNumber = 1
+  const totalPages = Math.ceil(data.length / pageSize)
+
+  for (let i = 0; i < data.length; i += pageSize) {
+    const pageData = data.slice(i, i + pageSize)
+    paginatedData.push({ page: pageNumber, totalPages: totalPages, data: pageData })
+    pageNumber++
+  }
+
+  return paginatedData
+}
+
+export const getSubs = async (): Promise<PaginatedData[]> => {
   const response = await fetch(baseUrl)
 
   const resbody = await response.text()
@@ -143,5 +168,8 @@ export const getSubs = async () => {
 
   if (!nextPeriod) return []
 
-  return data.filter((item) => item.ora >= nextPeriod?.period - 1)
+  data.filter((item) => item.ora >= nextPeriod?.period - 1)
+
+  // paginate data every 25 pages
+  return paginate(data, 12)
 }

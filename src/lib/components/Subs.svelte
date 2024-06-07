@@ -1,9 +1,13 @@
 <script lang="ts">
-  import Icon from '@iconify/svelte'
+  import SubDisplay from './SubDisplay.svelte'
+
   import { getSubs } from '$lib/fetchers/subs'
-  import TableHeader from '$lib/components/TableHeader.svelte'
+  import Icon from '@iconify/svelte'
 
   let subsPromise = getSubs()
+
+  // import Head from "$lib/head.png"
+  // import Turbine from "$lib/turbeen.png"
 
   // refetch every hour
   setInterval(() => {
@@ -12,36 +16,15 @@
 </script>
 
 {#await subsPromise}
-  <p>loading...</p>
+  <div class="flex justify-center items-center h-full">
+    <Icon icon="mdi:loading" class="text-6xl animate-spin" />
+    <!-- SPINNY BOY -->
+    <!-- <div class="">
+        <img src={Head} alt="" class="animate-spin w-[40rem] h-[40rem]">
+      </div> -->
+  </div>
 {:then subs}
-  {#if subs.length > 0}
-    <table class="w-full text-xl table-auto">
-      <tr>
-        <TableHeader icon="nest-clock-farsight-analog" centered={true} />
-        <TableHeader icon="person-off" name="Tanár" />
-        <TableHeader icon="person" name="Helyettesítő" />
-        <TableHeader icon="meeting-room" name="Terem" />
-        <TableHeader icon="group" name="Osztály" centered={true} />
-        <TableHeader icon="cell-merge-rounded" centered={true} />
-      </tr>
-      {#each subs as sub}
-        <tr class="items-center border-t">
-          <td class="font-bold text-center">{sub.ora}.</td>
-          <td>{sub.tname}</td>
-          <td>{sub.helytan}</td>
-          <td>{sub.terem}</td>
-          <td class="text-center">{sub.class}</td>
-          {#if sub.ovh == '0'}
-            <div class="mt-1 text-xl justify-center items-center flex">
-              <Icon icon="material-symbols-light:check" />
-            </div>
-          {/if}
-        </tr>
-      {/each}
-    </table>
-  {:else}
-    <p class="text-center text-2xl">Ma nincs helyettesítés!</p>
-  {/if}
+  <SubDisplay {subs} />
 {:catch error}
   <p>valami nem jo!</p>
   <p>{error}</p>

@@ -6,9 +6,14 @@
   import Box from '$lib/components/Box.svelte'
   import Weather from '$lib/components/Weather.svelte'
   import { getNews } from '$lib/fetchers/news'
-  import Icon from '@iconify/svelte'
-  import PetrikLogo from "$lib/icon.png"
+  import PetrikLogo from '$lib/icon.png'
   export let data: any = {} as PageData
+
+  let newsPromise = getNews()
+
+  setInterval(() => {
+    newsPromise = getNews()
+  }, 1800000)
 </script>
 
 <div
@@ -23,7 +28,7 @@
       </Box>
       <Box>
         <div class="flex items-center justify-center h-full animate-pulse grayscale">
-          <img src={PetrikLogo} alt="">
+          <img src={PetrikLogo} alt="" />
         </div>
       </Box>
     </div>
@@ -32,7 +37,7 @@
     </Box>
   </div>
 
-  {#await getNews() then news}
+  {#await newsPromise then news}
     {#if news}
       <BottomBar {news} />
     {/if}

@@ -5,14 +5,12 @@
   function updateClock() {
     const now = new Date()
     // Day, HH:MM
-    dateText =
-      now.toLocaleDateString('hu-HU', { dateStyle: 'full' })
-    clockText =
-      now.toLocaleTimeString('hu-HU', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      })
+    dateText = now.toLocaleDateString('hu-HU', { dateStyle: 'full' })
+    clockText = now.toLocaleTimeString('hu-HU', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    })
   }
 
   updateClock()

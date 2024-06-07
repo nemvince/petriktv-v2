@@ -13,19 +13,19 @@
 </script>
 
 {#await weatherPromise}
-<div class="flex items-center justify-center h-full">
-  <Icon
-icon="mdi:loading"
-class="text-6xl animate-spin p-0.5 rounded-full bg-white text-emerald-600"
-/>
-</div>
+  <div class="flex items-center justify-center h-full">
+    <Icon
+      icon="mdi:loading"
+      class="text-6xl animate-spin p-0.5 rounded-full bg-white text-emerald-600"
+    />
+  </div>
 {:then data}
   <div class="text-3xl flex flex-row justify-center gap-3 items-center">
     {#if data.current.is_day == 1}
       {#if data.forecast.forecastday[0].day.daily_chance_of_rain > 10}
-      <Icon icon="carbon:rain" class="text-6xl"></Icon>
+        <Icon icon="carbon:rain" class="text-6xl"></Icon>
       {:else}
-      <Icon icon="ep:sunrise" class="text-6xl"></Icon>
+        <Icon icon="ep:sunrise" class="text-6xl"></Icon>
       {/if}
     {:else}
       <Icon icon="solar:moon-fog-linear" class="text-6xl"></Icon>

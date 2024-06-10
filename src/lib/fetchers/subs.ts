@@ -171,5 +171,5 @@ export const getSubs = async (): Promise<PaginatedData[]> => {
   data.filter((item) => item.ora >= nextPeriod?.period - 1)
 
   // paginate data every 25 pages
-  return paginate(data, 12)
+  return paginate(data, 10)
 }

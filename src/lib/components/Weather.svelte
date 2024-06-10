@@ -3,27 +3,34 @@
 
   import { getCurrent } from '$lib/fetchers/weather'
   import Icon from '@iconify/svelte'
+  import { fade, slide } from 'svelte/transition'
 
   let weatherPromise = getCurrent(weatherKey)
 
   setInterval(() => {
     weatherPromise = getCurrent(weatherKey)
-  }, 1800000)
+  }, 60000)
 </script>
 
 {#await weatherPromise}
+<div class="flex items-center justify-center h-full">
   <Icon
-    icon="mdi:loading"
-    class="text-3xl animate-spin p-0.5 rounded-full bg-white text-cyan-600"
-  />
+icon="mdi:loading"
+class="text-6xl animate-spin p-0.5 rounded-full bg-white text-emerald-600"
+/>
+</div>
 {:then data}
-  <div class="text-4xl flex flex-row justify-center gap-3 items-center">
+  <div class="text-3xl flex flex-row justify-center gap-3 items-center">
     {#if data.current.is_day == 1}
+      {#if data.forecast.forecastday[0].day.daily_chance_of_rain > 10}
+      <Icon icon="carbon:rain" class="text-6xl"></Icon>
+      {:else}
       <Icon icon="ep:sunrise" class="text-6xl"></Icon>
+      {/if}
     {:else}
-      <Icon icon="solar:moon-fog-linear" class="text-6xl mx-auto"></Icon>
+      <Icon icon="solar:moon-fog-linear" class="text-6xl"></Icon>
     {/if}
-    <h1>{data.current.condition.text}</h1>
+    <h1>{data.forecast.forecastday[0].day.condition.text}</h1>
   </div>
   <div class="flex flex-col mt-3">
     <div class="flex flex-col text-2xl gap-2">

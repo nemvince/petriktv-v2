@@ -1,12 +1,13 @@
 <script lang="ts">
+  let dateText: string
   let clockText: string
 
   function updateClock() {
     const now = new Date()
-    // HH:MM
+    // Day, HH:MM
+    dateText =
+      now.toLocaleDateString('hu-HU', { dateStyle: 'full' })
     clockText =
-      now.toLocaleDateString('hu-HU') +
-      ' ' +
       now.toLocaleTimeString('hu-HU', {
         hour: '2-digit',
         minute: '2-digit',
@@ -18,4 +19,5 @@
   setInterval(updateClock, 1000)
 </script>
 
-<span contenteditable="true" bind:innerText={clockText}></span>
+<span>{dateText}</span>
+<span class="font-semibold">{clockText}</span>

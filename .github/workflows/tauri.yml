@@ -58,13 +58,19 @@ jobs:
       - name: get environment variables into .env
         run: echo BKK_KEY=${{ secrets.BKK_KEY }} > .env && echo WEATHER_KEY=${{ secrets.WEATHER_KEY }} >> .env
 
-      - uses: tauri-apps/tauri-action@v0
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        if: ${{ github.ref_type == 'tag' }}
+        # if u get Error: Resource not accessible by integration
+        # go to repository Settings => Action => General => Workflow permissions => Switch to Read and Write permisions
         env:
+          CI: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: 'App v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          # tauri-action replaces \_\_VERSION\_\_ with the app version
+          tagName: ${{ github.ref_name }}
+          releaseName: "v__VERSION__"
+          releaseDraft: false
           prerelease: false
-          args: ${{ matrix.settings.args }}

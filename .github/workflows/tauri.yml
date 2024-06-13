@@ -69,5 +69,6 @@ jobs:
           # tauri-action replaces \_\_VERSION\_\_ with the app version
           # tagName: ${{ github.ref_name }}
           releaseName: "v__VERSION__"
+          tagName: "v__VERSION__"
           releaseDraft: false
           prerelease: false

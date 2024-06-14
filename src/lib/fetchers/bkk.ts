@@ -1,22 +1,47 @@
 const baseUrl = 'https://futar.bkk.hu/api/query/v1/ws/otp/api/where'
 
+type StopTime = {
+  predictedDepartureTime: number
+  departureTime: number
+  tripId: string
+}
+
+type Trip = {
+  id: string
+  routeId: string
+}
+
 export async function getDeparturesForStop(apiKey: string, stopId: string, routeFilter?: string) {
   try {
-    let response
-    if (!routeFilter) {
-      response = await fetch(
-        `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30`
-      )
-    } else {
-      response = await fetch(
-        `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30&includeRouteId=${routeFilter}`
-      )
-    }
+    const response = await fetch(
+      `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&minutesBefore=0&minutesAfter=30`
+    )
 
     const body = await response.json()
-    const stopTime = body.data.entry.stopTimes[0]
-    const routeId = body.data.references.trips[stopTime.tripId].routeId
-    const routeShortDesc = body.data.references.routes[routeId].shortName
+
+    let stopTime: StopTime
+    let routeId: string
+    let routeShortDesc: string
+
+    if (routeFilter) {
+      const trips: { [key: string]: Trip } = body.data.references.trips
+      const filt = Object.values(trips).filter((trip) => trip.routeId === routeFilter)
+
+      if (filt.length > 0) {
+        const stopTimes: [StopTime] = body.data.entry.stopTimes
+        stopTime = stopTimes.filter((stopTime) =>
+          filt.map((f) => f.id).includes(stopTime.tripId)
+        )[0]
+        routeId = routeFilter
+        routeShortDesc = body.data.references.routes[routeId].shortName
+      } else {
+        return null
+      }
+    } else {
+      stopTime = body.data.entry.stopTimes[0]
+      routeId = body.data.references.trips[stopTime.tripId].routeId
+      routeShortDesc = body.data.references.routes[routeId].shortName
+    }
 
     // multiply by 1000 to convert to milliseconds
     const departureTime = new Date(

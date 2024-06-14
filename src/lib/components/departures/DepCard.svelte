@@ -11,10 +11,12 @@
 
   const getHosok = async (dep1: string, dep2: string) => {
     const dep1data = await getDeparturesForStop(bkk_key, dep1)
-    const dep2data = await getDeparturesForStop(bkk_key, dep2)
+    const dep2data = await getDeparturesForStop(bkk_key, dep2, 'BKK_0301')
 
-    if (dep1data === null || dep2data === null) {
-      return null
+    if (dep1data === null) {
+      return dep2data
+    } else if (dep2data === null) {
+      return dep1data
     }
 
     return dep1data.minutesUntilDeparture < dep2data.minutesUntilDeparture ? dep1data : dep2data

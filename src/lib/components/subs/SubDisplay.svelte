@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte'
-  import TableHeader from '$lib/components/TableHeader.svelte'
+  import TableHeader from '$lib/components/subs/TableHeader.svelte'
 
   export let subs
   let totalPages = 0

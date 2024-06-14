@@ -3,7 +3,6 @@
 
   import { getCurrent } from '$lib/fetchers/weather'
   import Icon from '@iconify/svelte'
-  import { fade, slide } from 'svelte/transition'
 
   let weatherPromise = getCurrent(weatherKey)
 

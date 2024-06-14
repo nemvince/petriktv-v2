@@ -2,6 +2,8 @@
   import Clock from '../Clock.svelte'
   import Departures from '../departures/Departures.svelte'
 
+  import { getVersion } from '@tauri-apps/api/app'
+
   export let apiKey: string
 
   // import AppIcon from "$lib/icon.png"
@@ -15,7 +17,11 @@
     <h1 class="text-3xl">
       Petrik<span class="font-semibold">TV</span>
     </h1>
-    <span class="text-xl">beta</span>
+    {#await getVersion() then version}
+      <span class="text-xl">v{version}</span>
+    {:catch}
+      <span class="text-xl">dev</span>
+    {/await}
   </div>
 
   <Departures {apiKey} />

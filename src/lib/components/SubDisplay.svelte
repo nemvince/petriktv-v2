@@ -60,8 +60,8 @@
     {/each}
   </div>
 {:else}
-<div class="flex flex-col justify-center items-center h-full">
-  <Icon icon="mdi:smiley" class="text-7xl" />
-  <p class="text-center text-4xl font-semibold">Ma nincs helyettesítés!</p>
+  <div class="flex flex-col justify-center items-center h-full">
+    <Icon icon="mdi:smiley" class="text-7xl" />
+    <p class="text-center text-4xl font-semibold">Ma nincs helyettesítés!</p>
   </div>
 {/if}

@@ -7,7 +7,7 @@
   import Weather from '$lib/components/Weather.svelte'
   import { getNews } from '$lib/fetchers/news'
   import PetrikLogo from '$lib/icon.png'
-  export let data: any = {} as PageData
+  export let data = {} as PageData
 
   let newsPromise = getNews()
 

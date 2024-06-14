@@ -7,7 +7,7 @@ export async function getDeparturesForStop(apiKey: string, stopId: string, route
       response = await fetch(
         `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30`
       )
-     } else {
+    } else {
       response = await fetch(
         `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30&includeRouteId=${routeFilter}`
       )
@@ -39,6 +39,7 @@ export async function getDeparturesForStop(apiKey: string, stopId: string, route
       minutesUntilDeparture: minutesUntilDeparture
     }
   } catch (error) {
+    console.error(error);
     return null
   }
 }

@@ -7,7 +7,7 @@
   export let stopId: string | [string, string]
   export let desc: string
 
-  let depPromise: Promise<any>
+  let depPromise: Promise<{ routeShortDesc: string; minutesUntilDeparture: number; } | null>
 
   const getHosok = async (dep1: string, dep2: string) => {
     const dep1data = await getDeparturesForStop(bkk_key, dep1)

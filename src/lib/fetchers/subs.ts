@@ -1,11 +1,5 @@
 const baseUrl = 'https://helyettesites.petrik.hu/api/index.php?status=napihely'
 
-interface PaginatedData {
-  page: number
-  totalPages: number
-  data: any[]
-}
-
 const periods = [
   {
     period: 0,
@@ -114,13 +108,14 @@ type SubInput = {
   day: string
 }
 
-const chunk = (array: any[], chunk_size: number): any[] => {
-  if (array.length === 0) return []
-  else return [array.splice(0, chunk_size)].concat(chunk(array, chunk_size))
+type PaginatedData = {
+  page: number
+  totalPages: number
+  data: Sub[]
 }
 
-const paginate = (data: any[], pageSize: number): PaginatedData[] => {
-  const paginatedData: any[] = []
+const paginate = (data: Sub[], pageSize: number): PaginatedData[] => {
+  const paginatedData: PaginatedData[] = []
   let pageNumber = 1
   const totalPages = Math.ceil(data.length / pageSize)
 
@@ -168,5 +163,8 @@ export const getSubs = async (): Promise<PaginatedData[]> => {
 
   if (!nextPeriod) return []
 
-  return paginate(data.filter((item) => item.ora >= nextPeriod.period - 1), 12)
+  return paginate(
+    data.filter((item) => item.ora >= nextPeriod.period - 1),
+    12
+  )
 }

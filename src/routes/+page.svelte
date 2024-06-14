@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { PageData } from './$types'
-  import Subs from '../lib/components/Subs.svelte'
+  import Subs from '../lib/components/subs/Subs.svelte'
   import TopBar from '$lib/components/bars/TopBar.svelte'
   import BottomBar from '$lib/components/bars/BottomBar.svelte'
   import Box from '$lib/components/Box.svelte'
   import Weather from '$lib/components/Weather.svelte'
   import { getNews } from '$lib/fetchers/news'
   import PetrikLogo from '$lib/icon.png'
-  export let data: any = {} as PageData
+  export let data = {} as PageData
 
   let newsPromise = getNews()
 
@@ -22,13 +22,13 @@
   <TopBar apiKey={data.bkkKey} />
 
   <div class="grid grid-cols-3 gap-3 h-full">
-    <div class="grid grid-rows-2 gap-3 col-span-1">
+    <div class="grid gap-3 col-span-1">
       <Box>
         <Weather weatherKey={data.weatherKey} />
       </Box>
       <Box>
         <div class="flex items-center justify-center h-full animate-pulse grayscale">
-          <img src={PetrikLogo} alt="" />
+          <img src={PetrikLogo} alt="" class="h-full max-h-56" />
         </div>
       </Box>
     </div>

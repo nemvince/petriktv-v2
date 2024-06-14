@@ -12,6 +12,10 @@
     "format": "prettier --write .",
     "tauri": "tauri"
   },
+  "pre-commit": [
+    "format",
+    "lint"
+  ],
   "devDependencies": {
     "@iconify/svelte": "^4.0.2",
     "@sveltejs/adapter-auto": "^3.0.0",
@@ -34,7 +38,10 @@
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0-alpha.20",
-    "vite": "^5.0.3"
+    "vite": "^5.0.3",
+    "@tauri-apps/api": "^1.5.6",
+    "pre-commit": "^1.2.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {}
 }

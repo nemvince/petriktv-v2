@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { json } from '@sveltejs/kit'
-
-  export let news: any
+  export let news: [{ alert: string; day: string }]
 
   const shouldWeMarquee = (news: [{ alert: string; day: string }]) => {
     if (news.length > 1) return true

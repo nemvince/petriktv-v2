@@ -3,13 +3,21 @@
 
   import { getCurrent } from '$lib/fetchers/weather'
   import Icon from '@iconify/svelte'
-  import { fade, slide } from 'svelte/transition'
 
   let weatherPromise = getCurrent(weatherKey)
 
   setInterval(() => {
     weatherPromise = getCurrent(weatherKey)
   }, 60000)
+
+  let weatherVideo: HTMLVideoElement
+  let weatherVideoSrc: HTMLSourceElement
+
+  setInterval(() => {
+    weatherVideoSrc.src = `https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a${Math.random()}`
+    weatherVideo.load()
+    weatherVideo.play()
+  }, 10000)
 </script>
 
 {#await weatherPromise}
@@ -30,16 +38,10 @@
     {:else}
       <Icon icon="solar:moon-fog-linear" class="text-6xl"></Icon>
     {/if}
-    <h1>{data.forecast.forecastday[0].day.condition.text}</h1>
+    <h1>{data.forecast.forecastday[0].day.condition.text} - {data.current.temp_c}°C</h1>
   </div>
-  <div class="flex flex-col mt-3">
-    <div class="flex flex-col text-2xl gap-2">
-      <div class="flex items-center gap-2">
-        <Icon icon="material-symbols:device-thermostat" class="text-3xl" />
-        <h1 class="">
-          Mért hőmérséklet: <span class="font-semibold">{data.current.temp_c}°C</span>
-        </h1>
-      </div>
+  <div class="flex flex-col mt-1">
+    <div class="flex flex-row justify-between text-2xl px-6">
       <div class="flex items-center gap-2">
         <Icon icon="material-symbols:device-thermostat" class="text-3xl" />
         <h1 class="">
@@ -49,10 +51,17 @@
       <div class="flex items-center gap-2">
         <Icon icon="ph:wind" class="text-3xl" />
         <h1 class="">
-          Szélsebesség: <span class="font-semibold">{data.current.wind_kph}km/h</span>
+          Szél: <span class="font-semibold">{data.current.wind_kph}km/h</span>
         </h1>
       </div>
     </div>
   </div>
+  <video muted autoplay loop class="rounded-2xl shadow-sm mt-4 px-2" bind:this={weatherVideo}>
+    <source
+      src="https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a"
+      bind:this={weatherVideoSrc}
+      type="video/mp4"
+    />
+  </video>
   <!-- TODO: kéne egy forecast -->
 {/await}

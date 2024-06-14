@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte'
-  import TableHeader from '$lib/components/TableHeader.svelte'
+  import TableHeader from '$lib/components/subs/TableHeader.svelte'
 
   export let subs
   let totalPages = 0
@@ -60,8 +60,8 @@
     {/each}
   </div>
 {:else}
-<div class="flex flex-col justify-center items-center h-full">
-  <Icon icon="mdi:smiley" class="text-7xl" />
-  <p class="text-center text-4xl font-semibold">Ma nincs helyettesítés!</p>
+  <div class="flex flex-col justify-center items-center h-full">
+    <Icon icon="mdi:smiley" class="text-7xl" />
+    <p class="text-center text-4xl font-semibold">Ma nincs helyettesítés!</p>
   </div>
 {/if}

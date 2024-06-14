@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "petriktv",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "tauri": {
     "allowlist": {
@@ -53,7 +53,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}"
+        "https://github.com/nemvince/petriktv-v2/releases/latest/download/latest.json"
       ],
       "dialog": false,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEU4Qzg1RkFBQjhGMUExRTQKUldUa29mRzRxbC9JNlA0bGx6TXNRcmtveDlydExxeU5xdHlyZXI3Z0xENkQva1grdDd4bm9WVkEK"

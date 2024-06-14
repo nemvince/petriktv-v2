@@ -1,10 +1,17 @@
 const baseUrl = 'https://futar.bkk.hu/api/query/v1/ws/otp/api/where'
 
-export async function getDeparturesForStop(apiKey: string, stopId: string) {
+export async function getDeparturesForStop(apiKey: string, stopId: string, routeFilter?: string) {
   try {
-    const response = await fetch(
-      `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30`
-    )
+    let response
+    if (!routeFilter) {
+      response = await fetch(
+        `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30`
+      )
+     } else {
+      response = await fetch(
+        `${baseUrl}/arrivals-and-departures-for-stop.json?key=${apiKey}&stopId=${stopId}&limit=1&minutesBefore=0&minutesAfter=30&includeRouteId=${routeFilter}`
+      )
+    }
 
     const body = await response.json()
     const stopTime = body.data.entry.stopTimes[0]

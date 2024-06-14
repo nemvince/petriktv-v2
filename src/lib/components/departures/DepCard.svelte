@@ -4,15 +4,36 @@
   import Icon from '@iconify/svelte'
 
   export let bkk_key: string
-  export let stopId: string
+  export let stopId: string | [string, string]
   export let desc: string
 
-  let depPromise = getDeparturesForStop(bkk_key, stopId)
+  let depPromise: Promise<any>
 
-  // refetch every minute
-  setInterval(() => {
+  const getHosok = async (dep1: string, dep2: string) => {
+    const dep1data = await getDeparturesForStop(bkk_key, dep1)
+    const dep2data = await getDeparturesForStop(bkk_key, dep2)
+
+    if (dep1data === null || dep2data === null) {
+      return null
+    }
+
+    return dep1data.minutesUntilDeparture < dep2data.minutesUntilDeparture ? dep1data : dep2data
+  }
+
+  if (typeof stopId === 'object') {
+    // this is hosok tere code babyyyy
+    depPromise = getHosok(stopId[0], stopId[1])
+
+    setInterval(() => {
+      depPromise = getHosok(stopId[0], stopId[1])
+    }, 30000)
+  } else {
     depPromise = getDeparturesForStop(bkk_key, stopId)
-  }, 30000)
+
+    setInterval(() => {
+      depPromise = getDeparturesForStop(bkk_key, stopId)
+    }, 30000)
+  }
 </script>
 
 <div class="flex items-center gap-2 bg-emerald-900 rounded-full pl-4">

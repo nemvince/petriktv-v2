@@ -1,10 +1,12 @@
 <script lang="ts">
   import Icon from '@iconify/svelte'
   import TableHeader from '$lib/components/TableHeader.svelte'
-  import { draw, fade, fly, slide } from 'svelte/transition'
 
   export let subs
-  let totalPages = subs[0].totalPages
+  let totalPages = 0
+  if (subs.length > 0) {
+    totalPages = subs[0].totalPages
+  }
   let selectedPage = 1
   setInterval(() => {
     if (selectedPage < totalPages) {
@@ -58,5 +60,8 @@
     {/each}
   </div>
 {:else}
-  <p class="text-center text-2xl">Ma nincs helyettesítés!</p>
+<div class="flex flex-col justify-center items-center h-full">
+  <Icon icon="mdi:smiley" class="text-7xl" />
+  <p class="text-center text-4xl font-semibold">Ma nincs helyettesítés!</p>
+  </div>
 {/if}

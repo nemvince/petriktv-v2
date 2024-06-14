@@ -5,13 +5,17 @@
 
   const stops = {
     reinerToKeleti: 'BKK_F01145',
+    chazarToZuglo: 'BKK_F02716',
     reinerToHosok: 'BKK_F01149',
-    chazarToZuglo: 'BKK_F02716'
+    reinerThokolyToHosok: 'BKK_F01146',
   }
+
+    const reinerDozsa = stops.reinerToHosok
+"    BKK_0301"
 </script>
 
 <div class="flex gap-2">
   <DepCard stopId={stops.reinerToKeleti} bkk_key={apiKey} desc="Keleti" />
-  <DepCard stopId={stops.reinerToHosok} bkk_key={apiKey} desc="Hősök tere" />
+  <DepCard stopId={[stops.reinerToHosok, stops.reinerThokolyToHosok]} bkk_key={apiKey} desc="Hősök tere" />
   <DepCard stopId={stops.chazarToZuglo} bkk_key={apiKey} desc="Zugló" />
 </div>

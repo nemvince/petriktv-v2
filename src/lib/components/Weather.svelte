@@ -17,7 +17,7 @@
     weatherVideoSrc.src = `https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a${Math.random()}`
     weatherVideo.load()
     weatherVideo.play()
-  }, 10000)
+  }, 600000)
 </script>
 
 {#await weatherPromise}

@@ -3,8 +3,10 @@ const baseUrl = 'https://helyettesites.petrik.hu/api/?status=napihir'
 const MODE = import.meta.env.MODE
 
 export const getNews = async () => {
+  let news: News[] = []
+
   if (MODE === 'development') {
-    return [
+    news = [
       {
         alert: 'Ez egy figyelmeztetés',
         day: '0000-00-00'
@@ -19,9 +21,15 @@ export const getNews = async () => {
   const response = await fetch(baseUrl)
 
   const rt = await response.text()
-  if (rt === '"empty"') return null
+  if (rt !== '"empty"') {
+    const input = JSON.parse(rt)
+    news.push(...input)
+  }
 
-  const input = JSON.parse(rt)
+  return news
+}
 
-  return input
+export interface News {
+  alert: string
+  day: string
 }

@@ -33,7 +33,7 @@
       </Box>
     </div>
     <Box class="col-span-2">
-      <Subs></Subs>
+      <Subs />
     </Box>
   </div>
 

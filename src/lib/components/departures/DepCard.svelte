@@ -61,6 +61,11 @@
         <Icon icon="mdi:bus" class="text-3xl p-0.5 rounded-full bg-white text-cyan-600" />
         <span class="text-white text-2xl">{dep.routeShortDesc}</span>
       </div>
+    {:else}
+      <div class="bg-cyan-950 rounded-full p-1 flex gap-2 pr-3 items-center font-semibold">
+        <Icon icon="mdi:bus" class="text-3xl p-0.5 rounded-full bg-white text-stone-600" />
+        <span class="text-white text-2xl">Nincs járat</span>
+      </div>
     {/if}
   {:catch error}
     <Icon icon="mdi:error" class="text-2xl" />

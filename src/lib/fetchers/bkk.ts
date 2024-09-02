@@ -63,8 +63,7 @@ export async function getDeparturesForStop(apiKey: string, stopId: string, route
       routeShortDesc: routeShortDesc,
       minutesUntilDeparture: minutesUntilDeparture
     }
-  } catch (error) {
-    console.error(error)
+  } catch {
     return null
   }
 }

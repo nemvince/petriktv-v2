@@ -9,6 +9,7 @@
     clockText = now.toLocaleTimeString('hu-HU', {
       hour: '2-digit',
       minute: '2-digit',
+      second: '2-digit',
       hour12: false
     })
   }
@@ -18,4 +19,4 @@
 </script>
 
 <span>{dateText}</span>
-<span class="font-semibold">{clockText}</span>
+<span class="font-semibold w-24 mr-3 inline-flex">{clockText}</span>

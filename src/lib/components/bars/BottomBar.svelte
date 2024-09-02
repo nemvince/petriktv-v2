@@ -1,7 +1,8 @@
 <script lang="ts">
-  export let news: [{ alert: string; day: string }]
+  import type { News } from '$lib/fetchers/news'
+  export let news: News[]
 
-  const shouldWeMarquee = (news: [{ alert: string; day: string }]) => {
+  const shouldWeMarquee = (news: News[]) => {
     if (news.length > 1) return true
     return news.some((alert) => alert.alert.length > 200)
   }

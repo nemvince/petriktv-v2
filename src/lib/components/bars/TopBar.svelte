@@ -3,6 +3,7 @@
   import Departures from '../departures/Departures.svelte'
 
   import { getVersion } from '@tauri-apps/api/app'
+  const MODE = import.meta.env.MODE
 
   export let apiKey: string
 
@@ -14,14 +15,18 @@
 >
   <div class="flex flex-row items-end">
     <!-- <img src={AppIcon} alt="App Icon" class="w-8 grayscale contrast-200" /> -->
-    <h1 class="text-3xl">
+    <h1 class="text-2xl">
       Petrik<span class="font-semibold">TV</span>
     </h1>
-    {#await getVersion() then version}
-      <span class="text-xl">v{version}</span>
-    {:catch}
+    {#if MODE === 'development'}
       <span class="text-xl">dev</span>
-    {/await}
+    {:else}
+      {#await getVersion() then version}
+        <span class="text-xl">v{version}</span>
+      {:catch}
+        <span class="text-xl">browser</span>
+      {/await}
+    {/if}
   </div>
 
   <Departures {apiKey} />

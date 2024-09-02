@@ -3,6 +3,7 @@
 
   import { getCurrent } from '$lib/fetchers/weather'
   import Icon from '@iconify/svelte'
+  import { onMount } from 'svelte'
 
   let weatherPromise = getCurrent(weatherKey)
 
@@ -13,11 +14,13 @@
   let weatherVideo: HTMLVideoElement
   let weatherVideoSrc: HTMLSourceElement
 
-  setInterval(() => {
-    weatherVideoSrc.src = `https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a${Math.random()}`
-    weatherVideo.load()
-    weatherVideo.play()
-  }, 10000)
+  onMount(() => {
+    setInterval(() => {
+      weatherVideoSrc.src = `https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a${Math.random()}`
+      weatherVideo.load()
+      weatherVideo.play()
+    }, 10000)
+  })
 </script>
 
 {#await weatherPromise}
@@ -56,12 +59,14 @@
       </div>
     </div>
   </div>
-  <video muted autoplay loop class="rounded-2xl shadow-sm mt-4 px-2" bind:this={weatherVideo}>
-    <source
-      src="https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a"
-      bind:this={weatherVideoSrc}
-      type="video/mp4"
-    />
-  </video>
+  <div class="bg-black h-80 min-w-full flex mt-4 rounded-2xl shadow-sm">
+    <video muted autoplay loop class="object-cover w-full rounded-2xl" bind:this={weatherVideo}>
+      <source
+        src="https://cdn.idokep.hu/terkep/hu970/felhokep2.mp4?a"
+        bind:this={weatherVideoSrc}
+        type="video/mp4"
+      />
+    </video>
+  </div>
   <!-- TODO: kéne egy forecast -->
 {/await}

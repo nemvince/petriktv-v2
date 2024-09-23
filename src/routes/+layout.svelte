@@ -10,6 +10,8 @@
   const keyCheck = (e: KeyboardEvent) => {
     if (e.key === 'r') {
       shouldWeUpdate()
+
+      location.reload()
     }
   }
 </script>

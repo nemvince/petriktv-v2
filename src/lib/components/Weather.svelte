@@ -41,7 +41,7 @@
     {:else}
       <Icon icon="solar:moon-fog-linear" class="text-6xl"></Icon>
     {/if}
-    <h1>{data.forecast.forecastday[0].day.condition.text} - {data.current.temp_c}°C</h1>
+    <h1>{data.forecast.forecastday[0].day.condition.text}: {data.current.temp_c}°C</h1>
   </div>
   <div class="flex flex-col mt-1">
     <div class="flex flex-row justify-between text-2xl px-6">

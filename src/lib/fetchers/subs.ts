@@ -165,6 +165,6 @@ export const getSubs = async (): Promise<PaginatedData[]> => {
 
   return paginate(
     data.filter((item) => item.ora >= nextPeriod.period - 1),
-    12
+    16
   )
 }

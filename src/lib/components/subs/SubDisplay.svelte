@@ -17,24 +17,24 @@
   }, 10000)
 
   function getFirstTwoNames(fullName: string): string {
-    const nameParts = fullName.trim().split(/\s+/);
+    const nameParts = fullName.trim().split(/\s+/)
 
-    if (nameParts[0] === "Dr.") {
-      return nameParts.slice(0, 2).join(' ');
+    if (nameParts[0] === 'Dr.') {
+      return nameParts.slice(0, 2).join(' ')
     }
 
     // if names contains "né", return everything after the part containing "né"
-    if (fullName.includes("né")) {
-        const nameParts = fullName.trim().split(/\s+/);
-        const nIdx = nameParts.findIndex(part => part.includes("né"));
-        return nameParts.slice(nIdx + 1).join(' ');
+    if (fullName.includes('né')) {
+      const nameParts = fullName.trim().split(/\s+/)
+      const nIdx = nameParts.findIndex((part) => part.includes('né'))
+      return nameParts.slice(nIdx + 1).join(' ')
     }
 
     if (nameParts.length === 4) {
-      return nameParts.slice(1, 3).join(' ');
+      return nameParts.slice(1, 3).join(' ')
     }
 
-    return nameParts.slice(0, 2).join(' ');
+    return nameParts.slice(0, 2).join(' ')
   }
 </script>
 
@@ -57,7 +57,7 @@
                 <td class="font-bold text-center">{sub.ora}.</td>
                 <td>{getFirstTwoNames(sub.tname)}</td>
                 <td>{getFirstTwoNames(sub.helytan)}</td>
-                <td>{sub.terem.replace(/\s-\s.*$/, "").replace(/\./g, "")}</td>
+                <td>{sub.terem.replace(/\s-\s.*$/, '').replace(/\./g, '')}</td>
                 <td class="">{sub.class}</td>
                 <td
                   >{#if sub.ovh == '0'}
